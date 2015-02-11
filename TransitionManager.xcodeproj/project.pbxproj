@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B29D602D1A8B9DC30098CEFD /* CEMKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29D602C1A8B9DC30098CEFD /* CEMKit.swift */; };
 		B2CF32AC1A8B8119005A20FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF32AB1A8B8119005A20FB /* AppDelegate.swift */; };
 		B2CF32AE1A8B8119005A20FB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF32AD1A8B8119005A20FB /* ViewController.swift */; };
 		B2CF32B11A8B8119005A20FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2CF32AF1A8B8119005A20FB /* Main.storyboard */; };
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B29D602C1A8B9DC30098CEFD /* CEMKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEMKit.swift; sourceTree = "<group>"; };
 		B2CF32A61A8B8119005A20FB /* TransitionManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransitionManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2CF32AA1A8B8119005A20FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2CF32AB1A8B8119005A20FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 		B2CF32A81A8B8119005A20FB /* TransitionManager */ = {
 			isa = PBXGroup;
 			children = (
+				B29D602C1A8B9DC30098CEFD /* CEMKit.swift */,
 				B2CF32CB1A8B8120005A20FB /* TransitionManager.swift */,
 				B2CF32AD1A8B8119005A20FB /* ViewController.swift */,
 				B2CF32CD1A8B8130005A20FB /* DetailViewController.swift */,
@@ -222,6 +225,7 @@
 				B2CF32AE1A8B8119005A20FB /* ViewController.swift in Sources */,
 				B2CF32AC1A8B8119005A20FB /* AppDelegate.swift in Sources */,
 				B2CF32CE1A8B8130005A20FB /* DetailViewController.swift in Sources */,
+				B29D602D1A8B9DC30098CEFD /* CEMKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -44,16 +44,18 @@ class DownTransitionAnimation: TransitionManagerAnimation {
         toViewController: UIViewController,
         duration: NSTimeInterval,
         completion: () -> Void) {
-            
-        container.addSubview(toViewController.view)
-            
-        UIView.animateWithDuration(
-            duration,
-            animations: {
 
-            },
-            completion: { finished in
-                completion ()
+        let fromView = fromViewController.view
+        let toView = toViewController.view
+        
+        container.addSubview(toView)
+        
+        toView.bottom = fromView.top
+        
+        toView.spring({ () -> Void in
+            toView.bottom = fromView.bottom
+        }, completion: { (finshed) -> Void in
+            completion ()
         })
     }
 }

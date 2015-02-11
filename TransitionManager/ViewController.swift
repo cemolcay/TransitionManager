@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    let transitionManager = TransitionManager (transitionAnimation: .Fade)
+    let transitionManager = TransitionManager (transitionAnimation: .Down)
 
     override func viewDidLoad() {
         super.viewDidLoad()
