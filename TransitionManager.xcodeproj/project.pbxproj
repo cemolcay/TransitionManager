@@ -7,12 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B2A352411A8B968400351002 /* TransitionManagerNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A352401A8B968400351002 /* TransitionManagerNavigationController.swift */; };
 		B2CF32AC1A8B8119005A20FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF32AB1A8B8119005A20FB /* AppDelegate.swift */; };
 		B2CF32AE1A8B8119005A20FB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF32AD1A8B8119005A20FB /* ViewController.swift */; };
 		B2CF32B11A8B8119005A20FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2CF32AF1A8B8119005A20FB /* Main.storyboard */; };
 		B2CF32B31A8B8119005A20FB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2CF32B21A8B8119005A20FB /* Images.xcassets */; };
 		B2CF32B61A8B8119005A20FB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2CF32B41A8B8119005A20FB /* LaunchScreen.xib */; };
 		B2CF32C21A8B8119005A20FB /* TransitionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF32C11A8B8119005A20FB /* TransitionManagerTests.swift */; };
+		B2CF32CC1A8B8120005A20FB /* TransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF32CB1A8B8120005A20FB /* TransitionManager.swift */; };
+		B2CF32CE1A8B8130005A20FB /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF32CD1A8B8130005A20FB /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B2A352401A8B968400351002 /* TransitionManagerNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionManagerNavigationController.swift; sourceTree = "<group>"; };
 		B2CF32A61A8B8119005A20FB /* TransitionManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransitionManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2CF32AA1A8B8119005A20FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2CF32AB1A8B8119005A20FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +40,8 @@
 		B2CF32BB1A8B8119005A20FB /* TransitionManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransitionManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2CF32C01A8B8119005A20FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2CF32C11A8B8119005A20FB /* TransitionManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionManagerTests.swift; sourceTree = "<group>"; };
+		B2CF32CB1A8B8120005A20FB /* TransitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionManager.swift; sourceTree = "<group>"; };
+		B2CF32CD1A8B8130005A20FB /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,11 +83,11 @@
 		B2CF32A81A8B8119005A20FB /* TransitionManager */ = {
 			isa = PBXGroup;
 			children = (
-				B2CF32AB1A8B8119005A20FB /* AppDelegate.swift */,
+				B2CF32CB1A8B8120005A20FB /* TransitionManager.swift */,
+				B2A352401A8B968400351002 /* TransitionManagerNavigationController.swift */,
 				B2CF32AD1A8B8119005A20FB /* ViewController.swift */,
+				B2CF32CD1A8B8130005A20FB /* DetailViewController.swift */,
 				B2CF32AF1A8B8119005A20FB /* Main.storyboard */,
-				B2CF32B21A8B8119005A20FB /* Images.xcassets */,
-				B2CF32B41A8B8119005A20FB /* LaunchScreen.xib */,
 				B2CF32A91A8B8119005A20FB /* Supporting Files */,
 			);
 			path = TransitionManager;
@@ -90,6 +96,9 @@
 		B2CF32A91A8B8119005A20FB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B2CF32B21A8B8119005A20FB /* Images.xcassets */,
+				B2CF32B41A8B8119005A20FB /* LaunchScreen.xib */,
+				B2CF32AB1A8B8119005A20FB /* AppDelegate.swift */,
 				B2CF32AA1A8B8119005A20FB /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -212,8 +221,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2CF32CC1A8B8120005A20FB /* TransitionManager.swift in Sources */,
 				B2CF32AE1A8B8119005A20FB /* ViewController.swift in Sources */,
 				B2CF32AC1A8B8119005A20FB /* AppDelegate.swift in Sources */,
+				B2CF32CE1A8B8130005A20FB /* DetailViewController.swift in Sources */,
+				B2A352411A8B968400351002 /* TransitionManagerNavigationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +419,7 @@
 				B2CF32C71A8B8119005A20FB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B2CF32C81A8B8119005A20FB /* Build configuration list for PBXNativeTarget "TransitionManagerTests" */ = {
 			isa = XCConfigurationList;
@@ -415,6 +428,7 @@
 				B2CF32CA1A8B8119005A20FB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

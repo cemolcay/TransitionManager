@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  DetailViewController.swift
 //  TransitionManager
 //
 //  Created by Cem Olcay on 11/02/15.
@@ -8,10 +8,8 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class DetailViewController: UIViewController {
+
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
     
 }
