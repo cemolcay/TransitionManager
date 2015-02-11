@@ -105,14 +105,16 @@ class TransitionManagerAnimation: TransitionManagerDelegate {
     }
 }
 
-class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate {
+class TransitionManager: NSObject,
+UIViewControllerAnimatedTransitioning,
+UIViewControllerTransitioningDelegate,
+UINavigationControllerDelegate {
     
     // MARK: Properties
     
-    private var presenting = true
+    var interactionController: UIPercentDrivenInteractiveTransition?
+
     var delegate: TransitionManagerDelegate!
-    var interactionController: UIPercentDrivenInteractiveTransition!
-    
     let duration: NSTimeInterval = 0.70
     
     
@@ -122,7 +124,7 @@ class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UIView
     init (transitionAnimation: TransitionManagerAnimations) {
         delegate  = transitionAnimation.transitionAnimation()
     }
-    
+
     
     
     // MARK: UIViewControllerAnimatedTransitioning
@@ -165,7 +167,7 @@ class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UIView
     
     
     func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return nil
+        return interactionController
     }
     
     func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
@@ -184,5 +186,64 @@ class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UIView
             return self
     }
     
+    func navigationController(
+        navigationController: UINavigationController,
+        interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return interactionController
+    }
+    
 
+}
+
+class InteractionTransitionNavigationController: UINavigationController {
+    
+    
+    // MARK: Properties
+    
+    var transitionManager: TransitionManager?
+    
+    override var delegate: UINavigationControllerDelegate? {
+        didSet {
+            if delegate is TransitionManager {
+                transitionManager = delegate as? TransitionManager
+            }
+        }
+    }
+    
+    
+    
+    // MARK: Lifecycle
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setupInteractionController()
+    }
+    
+    
+    
+    // MARK: Interaction Transitioning
+    
+    func setupInteractionController () {
+        let pan = UIScreenEdgePanGestureRecognizer(target: self, action: "handlePan:")
+        pan.edges = .Left
+        self.view.addGestureRecognizer(pan);
+    }
+    
+    func handlePan(gesture: UIScreenEdgePanGestureRecognizer) {
+        let percent = gesture.translationInView(gesture.view!).x / gesture.view!.bounds.size.width
+        
+        if gesture.state == .Began {
+            transitionManager?.interactionController = UIPercentDrivenInteractiveTransition()
+            popViewControllerAnimated(true)
+        } else if gesture.state == .Changed {
+            transitionManager?.interactionController!.updateInteractiveTransition(percent)
+        } else if gesture.state == .Ended {
+            if percent > 0.5 {
+                transitionManager?.interactionController!.finishInteractiveTransition()
+            } else {
+                transitionManager?.interactionController!.cancelInteractiveTransition()
+            }
+            transitionManager?.interactionController = nil
+        }
+    }
 }
