@@ -34,10 +34,10 @@
             </objects>
             <point key="canvasLocation" x="429" y="415"/>
         </scene>
-        <!--Transition Manager Navigation Controller-->
+        <!--Navigation Controller-->
         <scene sceneID="pYx-jS-Fvl">
             <objects>
-                <navigationController id="VTc-fG-Oax" customClass="TransitionManagerNavigationController" customModule="TransitionManager" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController id="VTc-fG-Oax" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rFq-kW-ngS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

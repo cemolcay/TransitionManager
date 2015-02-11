@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B2A352411A8B968400351002 /* TransitionManagerNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A352401A8B968400351002 /* TransitionManagerNavigationController.swift */; };
 		B2CF32AC1A8B8119005A20FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF32AB1A8B8119005A20FB /* AppDelegate.swift */; };
 		B2CF32AE1A8B8119005A20FB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF32AD1A8B8119005A20FB /* ViewController.swift */; };
 		B2CF32B11A8B8119005A20FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2CF32AF1A8B8119005A20FB /* Main.storyboard */; };
@@ -29,7 +28,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B2A352401A8B968400351002 /* TransitionManagerNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionManagerNavigationController.swift; sourceTree = "<group>"; };
 		B2CF32A61A8B8119005A20FB /* TransitionManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransitionManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2CF32AA1A8B8119005A20FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2CF32AB1A8B8119005A20FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -84,7 +82,6 @@
 			isa = PBXGroup;
 			children = (
 				B2CF32CB1A8B8120005A20FB /* TransitionManager.swift */,
-				B2A352401A8B968400351002 /* TransitionManagerNavigationController.swift */,
 				B2CF32AD1A8B8119005A20FB /* ViewController.swift */,
 				B2CF32CD1A8B8130005A20FB /* DetailViewController.swift */,
 				B2CF32AF1A8B8119005A20FB /* Main.storyboard */,
@@ -225,7 +222,6 @@
 				B2CF32AE1A8B8119005A20FB /* ViewController.swift in Sources */,
 				B2CF32AC1A8B8119005A20FB /* AppDelegate.swift in Sources */,
 				B2CF32CE1A8B8130005A20FB /* DetailViewController.swift in Sources */,
-				B2A352411A8B968400351002 /* TransitionManagerNavigationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

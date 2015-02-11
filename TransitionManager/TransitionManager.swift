@@ -20,25 +20,20 @@ class FadeTransitionAnimation: TransitionManagerAnimation {
         duration: NSTimeInterval,
         completion: ()->Void) {
             
-            let fromView = fromViewController.view
-            let toView = toViewController.view
+        let fromView = fromViewController.view
+        let toView = toViewController.view
+
+        container.addSubview(toView)
+        toView.alpha = 0
             
-            toView.alpha = 0
-            
-            container.addSubview(toView)
-            container.addSubview(fromView)
-            
-            UIView.animateWithDuration(duration,
-                delay: 0.0,
-                usingSpringWithDamping: 0.5,
-                initialSpringVelocity: 0.8,
-                options: nil,
-                animations: {
-                    toView.alpha = 1
-                }, completion: { finished in
-                    completion ()
-                }
-            )
+        UIView.animateWithDuration(
+            duration,
+            animations: {
+                toView.alpha = 1
+            },
+            completion: { finished in
+                completion ()
+            })
     }
 }
 
@@ -49,7 +44,17 @@ class DownTransitionAnimation: TransitionManagerAnimation {
         toViewController: UIViewController,
         duration: NSTimeInterval,
         completion: () -> Void) {
-        
+            
+        container.addSubview(toViewController.view)
+            
+        UIView.animateWithDuration(
+            duration,
+            animations: {
+
+            },
+            completion: { finished in
+                completion ()
+        })
     }
 }
 
@@ -98,12 +103,15 @@ class TransitionManagerAnimation: TransitionManagerDelegate {
     }
 }
 
-class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning {
+class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate {
     
     // MARK: Properties
     
     private var presenting = true
     var delegate: TransitionManagerDelegate!
+    var interactionController: UIPercentDrivenInteractiveTransition!
+    
+    let duration: NSTimeInterval = 0.70
     
     
     
@@ -135,6 +143,44 @@ class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning {
     }
     
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
-        return 0.75
+        return duration
     }
+    
+    
+    
+    // MARK: UIViewControllerTransitioningDelegate
+    
+    func animationControllerForPresentedController(
+        presented: UIViewController,
+        presentingController presenting: UIViewController,
+        sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+            return self
+    }
+    
+    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return self
+    }
+    
+    
+    func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return nil
+    }
+    
+    func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return interactionController
+    }
+    
+    
+    
+    // MARK: UINavigationControllerDelegate
+    
+    func navigationController(
+        navigationController: UINavigationController,
+        animationControllerForOperation operation: UINavigationControllerOperation,
+        fromViewController fromVC: UIViewController,
+        toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+            return self
+    }
+    
+
 }

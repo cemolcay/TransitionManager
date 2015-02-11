@@ -9,9 +9,11 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
+
+    let transitionManager = TransitionManager (transitionAnimation: .Fade)
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.delegate = transitionManager
     }
-    
 }
