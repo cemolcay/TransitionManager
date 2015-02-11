@@ -9,6 +9,31 @@
 import UIKit
 
 
+// MARK: - Transition Manager Animations
+
+enum TransitionManagerAnimations {
+    case Fade
+    case Down
+    case MaterialCircle (UIView)
+    
+    func transitionAnimation () -> TransitionManagerAnimation {
+        switch self {
+        case .Fade:
+            return FadeTransitionAnimation()
+            
+        case .Down:
+            return DownTransitionAnimation()
+            
+        case .MaterialCircle (let view):
+            return MaterialCircleTransitionAnimation(view: view)
+            
+        default:
+            return TransitionManagerAnimation()
+        }
+    }
+}
+
+
 // MARK: - Transition Animations
 
 class FadeTransitionAnimation: TransitionManagerAnimation {
@@ -60,21 +85,41 @@ class DownTransitionAnimation: TransitionManagerAnimation {
     }
 }
 
-
-
-// MARK: - Transition Manager Animations
-
-enum TransitionManagerAnimations {
-    case Fade
-    case Down
+class MaterialCircleTransitionAnimation: TransitionManagerAnimation {
     
-    func transitionAnimation () -> TransitionManagerAnimation {
-        switch self {
-        case .Fade:
-            return FadeTransitionAnimation()
-        
-        case .Down:
-            return DownTransitionAnimation()
+    var view: UIView!
+    
+    init (view: UIView) {
+        super.init()
+        self.view = view
+    }
+    
+    override func transition(
+        container: UIView,
+        fromViewController: UIViewController,
+        toViewController: UIViewController,
+        duration: NSTimeInterval,
+        completion: () -> Void) {
+            
+            let fromView = fromViewController.view
+            let toView = toViewController.view
+            
+            container.addSubview(toView)
+            
+            toView.bottom = fromView.top
+            
+            toView.spring({ () -> Void in
+                toView.bottom = fromView.bottom
+                }, completion: { (finshed) -> Void in
+                    completion ()
+            })
+    }
+
+    override var isInteractive: Bool {
+        get {
+            return true
+        } set (value) {
+            self.isInteractive = value
         }
     }
 }
@@ -83,16 +128,32 @@ enum TransitionManagerAnimations {
 
 // MARK: - Base
 
-protocol TransitionManagerDelegate {
+@objc protocol TransitionManagerDelegate {
     func transition (
         container: UIView,
         fromViewController: UIViewController,
         toViewController: UIViewController,
         duration: NSTimeInterval,
         completion: ()->Void)
+    
+    func interactiveTransition (
+        transition: (UIGestureRecognizer, UINavigationControllerOperation)->Void)
 }
 
 class TransitionManagerAnimation: TransitionManagerDelegate {
+    
+    // MARK: Properties
+    
+    var isInteractive: Bool {
+        get {
+            return false
+        } set (value) {
+            self.isInteractive = value
+        }
+    }
+
+    
+    // MARK: TransitionManagerDelegate
     
     func transition(
         container: UIView,
@@ -103,6 +164,9 @@ class TransitionManagerAnimation: TransitionManagerDelegate {
             
         completion()
     }
+    
+    func interactiveTransition (transition: (UIGestureRecognizer, UINavigationControllerOperation)->Void) { }
+    
 }
 
 class TransitionManager: NSObject,
@@ -206,7 +270,57 @@ class InteractionTransitionNavigationController: UINavigationController {
         didSet {
             if delegate is TransitionManager {
                 transitionManager = delegate as? TransitionManager
+                checkIsInteractive()
             }
+        }
+    }
+
+    
+    // MARK: Interaction
+    
+    func checkIsInteractive () {
+        let transitionAnimation = transitionManager?.delegate as TransitionManagerAnimation
+        
+        if transitionAnimation.isInteractive {
+            transitionAnimation.interactiveTransition({ [unowned self] (gesture, operation) -> Void in
+                self.interactiveTransition (gesture, operation: operation)
+            })
+        }
+    }
+    
+    func interactiveTransition (gesture: UIGestureRecognizer, operation: UINavigationControllerOperation) {
+        if gesture is UIPanGestureRecognizer {
+            interactivePan(gesture as UIPanGestureRecognizer, operation: operation)
+        }
+    }
+    
+    func interactivePan (gesture: UIPanGestureRecognizer, operation: UINavigationControllerOperation) {
+        let percent = gesture.translationInView(gesture.view!).x / gesture.view!.bounds.size.width
+        
+        switch gesture.state {
+        case .Began:
+            transitionManager?.interactionController = UIPercentDrivenInteractiveTransition()
+
+            if operation == .Pop {
+                popViewControllerAnimated(true)
+            } else if operation == .Push {
+                pushViewController(self, animated: true)
+            }
+            
+        case .Changed:
+            transitionManager?.interactionController!.updateInteractiveTransition(percent)
+            
+        case .Ended:
+            if percent > 0.5 {
+                transitionManager?.interactionController!.finishInteractiveTransition()
+            } else {
+                transitionManager?.interactionController?.updateInteractiveTransition(0)
+                transitionManager?.interactionController!.cancelInteractiveTransition()
+            }
+            transitionManager?.interactionController = nil
+            
+        default:
+            return
         }
     }
     
@@ -216,34 +330,5 @@ class InteractionTransitionNavigationController: UINavigationController {
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setupInteractionController()
-    }
-    
-    
-    
-    // MARK: Interaction Transitioning
-    
-    func setupInteractionController () {
-        let pan = UIScreenEdgePanGestureRecognizer(target: self, action: "handlePan:")
-        pan.edges = .Left
-        self.view.addGestureRecognizer(pan);
-    }
-    
-    func handlePan(gesture: UIScreenEdgePanGestureRecognizer) {
-        let percent = gesture.translationInView(gesture.view!).x / gesture.view!.bounds.size.width
-        
-        if gesture.state == .Began {
-            transitionManager?.interactionController = UIPercentDrivenInteractiveTransition()
-            popViewControllerAnimated(true)
-        } else if gesture.state == .Changed {
-            transitionManager?.interactionController!.updateInteractiveTransition(percent)
-        } else if gesture.state == .Ended {
-            if percent > 0.5 {
-                transitionManager?.interactionController!.finishInteractiveTransition()
-            } else {
-                transitionManager?.interactionController!.cancelInteractiveTransition()
-            }
-            transitionManager?.interactionController = nil
-        }
     }
 }
