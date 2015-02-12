@@ -9,14 +9,14 @@ Usage
 
 Copy & paste `TransitionManager.swift` into your project.
 
-Decleare a `TransitionManager` object.
-Init it with a [`TransitionManagerAnimation`](#Create)
-Assign it as your navigation controller's delegate if you use navigation controller.
-Else assign it as your view controller's `transitioningDelegate`.
+Decleare a `TransitionManager` object.  
+Init it with a [`TransitionManagerAnimation`](#Create)  
+Assign it as your navigation controller's delegate if you use navigation controller.  
+Else assign it as your view controller's `transitioningDelegate`.  
 
 ``` swift
 	
-	    var transition: TransitionManager!
+	 var transition: TransitionManager!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,20 +40,23 @@ Create a subclass of `TransitionManagerAnimation`
 	}
 ```
 
-`TransitionManagerAnimation` implements `TransitionManagerDelegate` protocol.
+`TransitionManagerAnimation` class implements `TransitionManagerDelegate` protocol.
 
-##### TransitionManagerDelegate
+##### TransitionManagerDelegate <a id="Delegate"></a>
 
 ``` swift
 
-    func transition (
-        container: UIView,
-        fromViewController: UIViewController,
-        toViewController: UIViewController,
-        duration: NSTimeInterval,
-        completion: ()->Void)
-        
-    var interactionTransitionController: UIPercentDrivenInteractiveTransition? { get set }
+	protocol TransitionManagerDelegate {
+	        
+	    func transition (
+	        container: UIView,
+	        fromViewController: UIViewController,
+	        toViewController: UIViewController,
+	        duration: NSTimeInterval,
+	        completion: ()->Void)
+	        
+	    var interactionTransitionController: UIPercentDrivenInteractiveTransition? { get set }
+	}
 
 ```
 
@@ -109,9 +112,11 @@ Add its `view` a pan gesture
 	        self.navigationController = navigationController
 	        self.navigationController.view.addGestureRecognizer(UIPanGestureRecognizer (target: self, action: Selector("didPan:")))
 	    }
+	    
+	}
 ```
 
-We will update `interactionTransitionController` variable in `TransitionManagerDelegate` in gesture handler.
+We will update `interactionTransitionController` variable in [`TransitionManagerDelegate`](#Delegate) in gesture handler.
 
 ``` swift
     func didPan (gesture: UIPanGestureRecognizer) {
@@ -139,8 +144,8 @@ We will update `interactionTransitionController` variable in `TransitionManagerD
 ```
 
 Interaction transition has 3 parts:
-* Init `interactionTransitionController` and either pop or push view controller when gesture (interaction) starts.
-* Calculate your `percent`s on gesture Change and `updateInteractiveTransition:` with that percent
+* Init `interactionTransitionController` and either pop or push navigation controller when gesture (interaction) starts.
+* Calculate your `percent`s on gesture change and `updateInteractiveTransition:` with that percent
 * When gesture ended, decide if your transition complete or not and give information to your `interactionTransitionController` with `finishInteractiveTransition ()` and `cancelInteractiveTransition ()`
 
 
