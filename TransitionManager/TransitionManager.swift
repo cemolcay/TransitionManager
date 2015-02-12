@@ -20,12 +20,7 @@ protocol TransitionManagerDelegate {
     var interactionTransitionController: UIPercentDrivenInteractiveTransition? { get set }
 }
 
-class TransitionManagerAnimation: TransitionManagerDelegate {
-    
-    // MARK: Lifecycle
-    
-    init () {}
-    
+class TransitionManagerAnimation: NSObject, TransitionManagerDelegate {
     
     // MARK: TransitionManagerDelegate
     
@@ -39,11 +34,12 @@ class TransitionManagerAnimation: TransitionManagerDelegate {
         completion()
     }
     
+    private var _interactionTransitionController: UIPercentDrivenInteractiveTransition? = nil
     var interactionTransitionController: UIPercentDrivenInteractiveTransition? {
         get {
-            return nil
+            return _interactionTransitionController
         } set (value) {
-            self.interactionTransitionController = value
+            _interactionTransitionController = value
         }
     }
 }
@@ -80,7 +76,7 @@ class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UIView
             toViewController: toViewController!,
             duration: transitionDuration(transitionContext),
             completion: {
-                transitionContext.completeTransition(true)
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
             })
     }
     

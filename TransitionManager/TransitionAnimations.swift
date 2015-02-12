@@ -94,10 +94,9 @@ class MaterialCircleTransitionAnimation: TransitionManagerAnimation {
     
     init (navigationController: UINavigationController) {
         super.init()
-        self.navigationController = navigationController
         
-        let pan = UIPanGestureRecognizer (target: self, action: "didPan:")
-        self.navigationController.view.addGestureRecognizer(pan)
+        self.navigationController = navigationController
+        self.navigationController.view.addGestureRecognizer(UIPanGestureRecognizer (target: self, action: Selector("didPan:")))
     }
     
     override func transition(
@@ -107,19 +106,19 @@ class MaterialCircleTransitionAnimation: TransitionManagerAnimation {
         duration: NSTimeInterval,
         completion: () -> Void) {
             
-            let fromView = fromViewController.view
-            let toView = toViewController.view
-            
-            container.addSubview(toView)
-            
-            toView.bottom = fromView.top
-            
-            toView.spring({ () -> Void in
-                toView.bottom = fromView.bottom
-                },
-                completion: { (finshed) -> Void in
-                    completion ()
-            })
+        let fromView = fromViewController.view
+        let toView = toViewController.view
+        
+        container.addSubview(toView)
+        
+        toView.right = fromView.left
+        
+        toView.spring({ () -> Void in
+            toView.right = fromView.right
+        },
+        completion: { (finshed) -> Void in
+            completion ()
+        })
     }
     
     func didPan (gesture: UIPanGestureRecognizer) {
