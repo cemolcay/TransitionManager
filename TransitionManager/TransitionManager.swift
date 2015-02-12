@@ -8,32 +8,6 @@
 
 import UIKit
 
-
-// MARK: - Transition Manager Animations
-
-enum TransitionManagerAnimations {
-    case Fade
-    case Down
-    case MaterialCircle (UINavigationController)
-    
-    func transitionAnimation () -> TransitionManagerAnimation {
-        switch self {
-        case .Fade:
-            return FadeTransitionAnimation()
-            
-        case .Down:
-            return DownTransitionAnimation()
-            
-        case .MaterialCircle (let nav):
-            return MaterialCircleTransitionAnimation(navigationController: nav)
-            
-        default:
-            return TransitionManagerAnimation()
-        }
-    }
-}
-
-
 protocol TransitionManagerDelegate {
     
     func transition (
@@ -45,7 +19,6 @@ protocol TransitionManagerDelegate {
     
     func interactionTransition (interactionController: UIPercentDrivenInteractiveTransition?) -> UIPercentDrivenInteractiveTransition?
 }
-
 
 class TransitionManagerAnimation: TransitionManagerDelegate {
     
@@ -63,7 +36,7 @@ class TransitionManagerAnimation: TransitionManagerDelegate {
         duration: NSTimeInterval,
         completion: () -> Void) {
             
-            completion()
+        completion()
     }
     
     func interactionTransition(interactionController: UIPercentDrivenInteractiveTransition?) -> UIPercentDrivenInteractiveTransition? {
@@ -71,14 +44,13 @@ class TransitionManagerAnimation: TransitionManagerDelegate {
     }
 }
 
-
 class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate {
     
     // MARK: Properties
     
     var interactionController: UIPercentDrivenInteractiveTransition?
 
-    var delegate: TransitionManagerDelegate!
+    var transitionAnimation: TransitionManagerAnimation!
     let duration: NSTimeInterval = 0.70
     
     
@@ -86,13 +58,8 @@ class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UIView
     // MARK: Lifecycle
     
     init (transitionAnimation: TransitionManagerAnimation) {
-        delegate  = transitionAnimation
+        self.transitionAnimation = transitionAnimation
     }
-
-    init (transition: TransitionManagerAnimations) {
-        delegate  = transition.transitionAnimation()
-    }
-
     
     
     // MARK: UIViewControllerAnimatedTransitioning
@@ -104,7 +71,7 @@ class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UIView
         let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
         let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
 
-        delegate.transition(
+        transitionAnimation.transition(
             container,
             fromViewController: fromViewController!,
             toViewController: toViewController!,
@@ -136,12 +103,10 @@ class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UIView
     
     
     func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        let transitionAnimation = delegate as TransitionManagerAnimation
         return transitionAnimation.interactionTransition(interactionController)
     }
     
     func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        let transitionAnimation = delegate as TransitionManagerAnimation
         return transitionAnimation.interactionTransition(interactionController)
     }
     
@@ -160,8 +125,6 @@ class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UIView
     func navigationController(
         navigationController: UINavigationController,
         interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        let transitionAnimation = delegate as TransitionManagerAnimation
         return transitionAnimation.interactionTransition(interactionController)
     }
 }
-

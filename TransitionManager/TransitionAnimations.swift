@@ -8,6 +8,36 @@
 
 import UIKit
 
+enum TransitionManagerAnimations {
+    case Fade
+    case Down
+    case MaterialCircle (UINavigationController)
+    
+    func transitionAnimation () -> TransitionManagerAnimation {
+        switch self {
+        case .Fade:
+            return FadeTransitionAnimation()
+            
+        case .Down:
+            return DownTransitionAnimation()
+            
+        case .MaterialCircle (let nav):
+            return MaterialCircleTransitionAnimation(navigationController: nav)
+            
+        default:
+            return TransitionManagerAnimation()
+        }
+    }
+}
+
+extension TransitionManager {
+    
+    convenience init (transition: TransitionManagerAnimations) {
+        self.init (transitionAnimation: transition.transitionAnimation())
+    }
+}
+
+
 
 class FadeTransitionAnimation: TransitionManagerAnimation {
     
@@ -63,7 +93,9 @@ class MaterialCircleTransitionAnimation: TransitionManagerAnimation {
     var navigationController: UINavigationController!
     
     init (navigationController: UINavigationController) {
+        super.init()
         self.navigationController = navigationController
+        navigationController.view.addGestureRecognizer(UIPanGestureRecognizer (target: self, action: "didPan:"))
     }
     
     override func transition(
@@ -89,8 +121,39 @@ class MaterialCircleTransitionAnimation: TransitionManagerAnimation {
     }
     
     override func interactionTransition(interactionController: UIPercentDrivenInteractiveTransition?) -> UIPercentDrivenInteractiveTransition? {
-        return interactionController
+        return nil
     }
+    
+    
+//    func didPan (gesture: UIPanGestureRecognizer) {
+//        let percent = gesture.translationInView(gesture.view!).x / gesture.view!.bounds.size.width
+//        
+//        switch gesture.state {
+//        case .Began:
+//            transitionManager?.interactionController = UIPercentDrivenInteractiveTransition()
+//            
+//            if operation == .Pop {
+//                popViewControllerAnimated(true)
+//            } else if operation == .Push {
+//                pushViewController(self, animated: true)
+//            }
+//            
+//        case .Changed:
+//            transitionManager?.interactionController!.updateInteractiveTransition(percent)
+//            
+//        case .Ended:
+//            if percent > 0.5 {
+//                transitionManager?.interactionController!.finishInteractiveTransition()
+//            } else {
+//                transitionManager?.interactionController?.updateInteractiveTransition(0)
+//                transitionManager?.interactionController!.cancelInteractiveTransition()
+//            }
+//            transitionManager?.interactionController = nil
+//            
+//        default:
+//            return
+//        }
+//    }
 }
 
 
