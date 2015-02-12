@@ -16,14 +16,14 @@ Else assign it as your view controller's `transitioningDelegate`.
 
 ``` swift
 	
-	 var transition: TransitionManager!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        transition = TransitionManager (transitionAnimation: FadeTransitionAnimation())
-        navigationController?.delegate = transition
-    }
+	var transition: TransitionManager!
+	    
+	override func viewDidLoad() {
+	   super.viewDidLoad()
+	   
+	   transition = TransitionManager (transitionAnimation: FadeTransitionAnimation())
+	   navigationController?.delegate = transition
+	}
 	
 ```
 
