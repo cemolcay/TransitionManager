@@ -10,19 +10,15 @@ import UIKit
 
 enum TransitionManagerAnimations {
     case Fade
-    case Down
-    case MaterialCircle (UINavigationController)
+    case Left (UINavigationController)
     
     func transitionAnimation () -> TransitionManagerAnimation {
         switch self {
         case .Fade:
             return FadeTransitionAnimation()
             
-        case .Down:
-            return DownTransitionAnimation()
-            
-        case .MaterialCircle (let nav):
-            return MaterialCircleTransitionAnimation(navigationController: nav)
+        case .Left (let nav):
+            return LeftTransitionAnimation(navigationController: nav)
             
         default:
             return TransitionManagerAnimation()
@@ -65,30 +61,7 @@ class FadeTransitionAnimation: TransitionManagerAnimation {
     }
 }
 
-class DownTransitionAnimation: TransitionManagerAnimation {
-    override func transition(
-        container: UIView,
-        fromViewController: UIViewController,
-        toViewController: UIViewController,
-        duration: NSTimeInterval,
-        completion: () -> Void) {
-            
-            let fromView = fromViewController.view
-            let toView = toViewController.view
-            
-            container.addSubview(toView)
-            
-            toView.bottom = fromView.top
-            
-            toView.spring({ () -> Void in
-                toView.bottom = fromView.bottom
-                }, completion: { (finshed) -> Void in
-                    completion ()
-            })
-    }
-}
-
-class MaterialCircleTransitionAnimation: TransitionManagerAnimation {
+class LeftTransitionAnimation: TransitionManagerAnimation {
     
     var navigationController: UINavigationController!
     

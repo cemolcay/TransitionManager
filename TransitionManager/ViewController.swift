@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        transition = TransitionManager (transition: .MaterialCircle(navigationController!))
+        transition = TransitionManager (transition: .Left(navigationController!))
         navigationController?.delegate = transition
     }
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>3F77E847-AE96-4F06-88F1-E9D846795332</string>
+	<key>IDESourceControlProjectName</key>
+	<string>TransitionManager</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>57B26A0AF13FCA0F7824CDF8D62DEA763E9BC3F7</key>
+		<string>https://github.com/cemolcay/TransitionManager.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>TransitionManager.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>57B26A0AF13FCA0F7824CDF8D62DEA763E9BC3F7</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/cemolcay/TransitionManager.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>57B26A0AF13FCA0F7824CDF8D62DEA763E9BC3F7</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>57B26A0AF13FCA0F7824CDF8D62DEA763E9BC3F7</string>
+			<key>IDESourceControlWCCName</key>
+			<string>TransitionManager</string>
+		</dict>
+	</array>
+</dict>
+</plist>

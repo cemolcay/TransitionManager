@@ -10,12 +10,18 @@ import UIKit
 
 protocol TransitionManagerDelegate {
     
+    // Animation method implementation
+    
     func transition (
         container: UIView,
         fromViewController: UIViewController,
         toViewController: UIViewController,
         duration: NSTimeInterval,
         completion: ()->Void)
+    
+    
+    // Interactive transitions
+    // update percent in gesture handler
     
     var interactionTransitionController: UIPercentDrivenInteractiveTransition? { get set }
 }
