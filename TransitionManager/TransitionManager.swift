@@ -17,7 +17,7 @@ protocol TransitionManagerDelegate {
         duration: NSTimeInterval,
         completion: ()->Void)
     
-    func interactionTransition (interactionController: UIPercentDrivenInteractiveTransition?) -> UIPercentDrivenInteractiveTransition?
+    var interactionTransitionController: UIPercentDrivenInteractiveTransition? { get set }
 }
 
 class TransitionManagerAnimation: TransitionManagerDelegate {
@@ -39,16 +39,18 @@ class TransitionManagerAnimation: TransitionManagerDelegate {
         completion()
     }
     
-    func interactionTransition(interactionController: UIPercentDrivenInteractiveTransition?) -> UIPercentDrivenInteractiveTransition? {
-        return interactionController
+    var interactionTransitionController: UIPercentDrivenInteractiveTransition? {
+        get {
+            return nil
+        } set (value) {
+            self.interactionTransitionController = value
+        }
     }
 }
 
 class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate {
     
     // MARK: Properties
-    
-    var interactionController: UIPercentDrivenInteractiveTransition?
 
     var transitionAnimation: TransitionManagerAnimation!
     let duration: NSTimeInterval = 0.70
@@ -60,6 +62,7 @@ class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UIView
     init (transitionAnimation: TransitionManagerAnimation) {
         self.transitionAnimation = transitionAnimation
     }
+    
     
     
     // MARK: UIViewControllerAnimatedTransitioning
@@ -103,11 +106,11 @@ class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UIView
     
     
     func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return transitionAnimation.interactionTransition(interactionController)
+        return transitionAnimation.interactionTransitionController
     }
     
     func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return transitionAnimation.interactionTransition(interactionController)
+        return transitionAnimation.interactionTransitionController
     }
     
     
@@ -125,6 +128,6 @@ class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UIView
     func navigationController(
         navigationController: UINavigationController,
         interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return transitionAnimation.interactionTransition(interactionController)
+        return transitionAnimation.interactionTransitionController
     }
 }
