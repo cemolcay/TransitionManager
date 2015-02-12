@@ -126,6 +126,7 @@ We will update `interactionTransitionController` variable in [`TransitionManager
         case .Began:
             interactionTransitionController = UIPercentDrivenInteractiveTransition()
             navigationController.popViewControllerAnimated(true)
+            
         case .Changed:
             interactionTransitionController!.updateInteractiveTransition(percent)
             
