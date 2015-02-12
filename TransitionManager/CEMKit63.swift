@@ -335,10 +335,10 @@ extension UIView {
     
     func pop () {
         setScale(1.1, y: 1.1)
-        spring(0.2) {
-            [unowned self] in
-            self.setScale(1, y: 1)
-        }
+        spring(0.2,
+            animations: { [unowned self] in
+                self.setScale(1, y: 1)
+            })
     }
 }
 
@@ -669,11 +669,11 @@ extension UILabel {
             if let att = attributedStrings?[index] {
                 let newAtt = NSMutableAttributedString (string: newText)
                 
-                att.enumerateAttributesInRange(NSMakeRange(0, countElements(att.string)-1),
+                att.enumerateAttributesInRange(NSMakeRange(0, count(att.string)-1),
                     options: NSAttributedStringEnumerationOptions.LongestEffectiveRangeNotRequired,
                     usingBlock: { (attribute, range, stop) -> Void in
                         for (key, value) in attribute {
-                            newAtt.addAttribute(key as String, value: value, range: range)
+                            newAtt.addAttribute(key as! String, value: value, range: range)
                         }
                     }
                 )
@@ -907,10 +907,10 @@ extension NSAttributedString {
     
     func addAtt (attribute: [NSString: NSObject]) -> NSAttributedString {
         let mutable = NSMutableAttributedString (attributedString: self)
-        let count = countElements(string)
+        let c = count(string)
         
         for (key, value) in attribute {
-            mutable.addAttribute(key, value: value, range: NSMakeRange(0, count))
+            mutable.addAttribute(key as! String, value: value, range: NSMakeRange(0, c))
         }
         
         return mutable
@@ -928,7 +928,7 @@ extension NSAttributedString {
         font: UIFont,
         style: NSAttributedStringStyle = .plain) {
             
-            var atts = [NSFontAttributeName: font, NSForegroundColorAttributeName: color]
+            var atts = [NSFontAttributeName as NSString: font, NSForegroundColorAttributeName as NSString: color]
             atts += style.attribute()
             
             self.init (string: text, attributes: atts)
@@ -1088,8 +1088,8 @@ extension UIImageView {
         })
     }
     
-    func imageWithUrl (url: String, placeholder: String) {
-        self.image = UIImage (named: placeholder)
+    func imageWithUrl (url: String, placeholderNamed: String) {
+        self.image = UIImage (named: placeholderNamed)
         imageRequest(url, { (image) -> Void in
             if let img = image {
                 self.image = image
@@ -1209,7 +1209,7 @@ extension UIColor {
         var hexValue: CUnsignedLongLong = 0
         
         if scanner.scanHexLongLong(&hexValue) {
-            switch (countElements(hex)) {
+            switch (count(hex)) {
             case 3:
                 red   = CGFloat((hexValue & 0xF00) >> 8)       / 15.0
                 green = CGFloat((hexValue & 0x0F0) >> 4)       / 15.0
@@ -1308,12 +1308,13 @@ func imageRequest (
     url: String,
     success: (UIImage?)->Void) {
     
-    urlRequest(url) {data in
+    urlRequest(url, {data in
         if let d = data {
             success (UIImage (data: d))
         }
-    }
+    })
 }
+
 
 func jsonRequest (
     url: String,
@@ -1325,7 +1326,7 @@ func jsonRequest (
             let json: AnyObject? = dataToJsonDict(data)
             success (json)
         },
-        { (err)->Void in
+        error: { (err)->Void in
             if let e = error {
                 e (err)
             }

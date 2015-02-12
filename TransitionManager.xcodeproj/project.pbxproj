@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B29D602D1A8B9DC30098CEFD /* CEMKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29D602C1A8B9DC30098CEFD /* CEMKit.swift */; };
 		B2CF32AC1A8B8119005A20FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF32AB1A8B8119005A20FB /* AppDelegate.swift */; };
 		B2CF32AE1A8B8119005A20FB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF32AD1A8B8119005A20FB /* ViewController.swift */; };
 		B2CF32B11A8B8119005A20FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2CF32AF1A8B8119005A20FB /* Main.storyboard */; };
@@ -16,6 +15,7 @@
 		B2CF32C21A8B8119005A20FB /* TransitionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF32C11A8B8119005A20FB /* TransitionManagerTests.swift */; };
 		B2CF32CC1A8B8120005A20FB /* TransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF32CB1A8B8120005A20FB /* TransitionManager.swift */; };
 		B2CF32CE1A8B8130005A20FB /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF32CD1A8B8130005A20FB /* DetailViewController.swift */; };
+		B2D04D0E1A8CA42200F48F0E /* TransitionAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D04D0D1A8CA42200F48F0E /* TransitionAnimations.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,7 +29,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B29D602C1A8B9DC30098CEFD /* CEMKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEMKit.swift; sourceTree = "<group>"; };
 		B2CF32A61A8B8119005A20FB /* TransitionManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransitionManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2CF32AA1A8B8119005A20FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2CF32AB1A8B8119005A20FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -42,6 +41,7 @@
 		B2CF32C11A8B8119005A20FB /* TransitionManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionManagerTests.swift; sourceTree = "<group>"; };
 		B2CF32CB1A8B8120005A20FB /* TransitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionManager.swift; sourceTree = "<group>"; };
 		B2CF32CD1A8B8130005A20FB /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		B2D04D0D1A8CA42200F48F0E /* TransitionAnimations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionAnimations.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,8 +83,8 @@
 		B2CF32A81A8B8119005A20FB /* TransitionManager */ = {
 			isa = PBXGroup;
 			children = (
-				B29D602C1A8B9DC30098CEFD /* CEMKit.swift */,
 				B2CF32CB1A8B8120005A20FB /* TransitionManager.swift */,
+				B2D04D0D1A8CA42200F48F0E /* TransitionAnimations.swift */,
 				B2CF32AD1A8B8119005A20FB /* ViewController.swift */,
 				B2CF32CD1A8B8130005A20FB /* DetailViewController.swift */,
 				B2CF32AF1A8B8119005A20FB /* Main.storyboard */,
@@ -221,11 +221,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2D04D0E1A8CA42200F48F0E /* TransitionAnimations.swift in Sources */,
 				B2CF32CC1A8B8120005A20FB /* TransitionManager.swift in Sources */,
 				B2CF32AE1A8B8119005A20FB /* ViewController.swift in Sources */,
 				B2CF32AC1A8B8119005A20FB /* AppDelegate.swift in Sources */,
 				B2CF32CE1A8B8130005A20FB /* DetailViewController.swift in Sources */,
-				B29D602D1A8B9DC30098CEFD /* CEMKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,6 +365,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};

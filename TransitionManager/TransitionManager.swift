@@ -14,7 +14,7 @@ import UIKit
 enum TransitionManagerAnimations {
     case Fade
     case Down
-    case MaterialCircle (UIView)
+    case MaterialCircle (UINavigationController)
     
     func transitionAnimation () -> TransitionManagerAnimation {
         switch self {
@@ -24,8 +24,8 @@ enum TransitionManagerAnimations {
         case .Down:
             return DownTransitionAnimation()
             
-        case .MaterialCircle (let view):
-            return MaterialCircleTransitionAnimation(view: view)
+        case .MaterialCircle (let nav):
+            return MaterialCircleTransitionAnimation(navigationController: nav)
             
         default:
             return TransitionManagerAnimation()
@@ -34,101 +34,8 @@ enum TransitionManagerAnimations {
 }
 
 
-// MARK: - Transition Animations
-
-class FadeTransitionAnimation: TransitionManagerAnimation {
+protocol TransitionManagerDelegate {
     
-    override func transition (
-        container: UIView,
-        fromViewController: UIViewController,
-        toViewController: UIViewController,
-        duration: NSTimeInterval,
-        completion: ()->Void) {
-            
-        let fromView = fromViewController.view
-        let toView = toViewController.view
-
-        container.addSubview(toView)
-        toView.alpha = 0
-            
-        UIView.animateWithDuration(
-            duration,
-            animations: {
-                toView.alpha = 1
-            },
-            completion: { finished in
-                completion ()
-            })
-    }
-}
-
-class DownTransitionAnimation: TransitionManagerAnimation {
-    override func transition(
-        container: UIView,
-        fromViewController: UIViewController,
-        toViewController: UIViewController,
-        duration: NSTimeInterval,
-        completion: () -> Void) {
-
-        let fromView = fromViewController.view
-        let toView = toViewController.view
-        
-        container.addSubview(toView)
-        
-        toView.bottom = fromView.top
-        
-        toView.spring({ () -> Void in
-            toView.bottom = fromView.bottom
-        }, completion: { (finshed) -> Void in
-            completion ()
-        })
-    }
-}
-
-class MaterialCircleTransitionAnimation: TransitionManagerAnimation {
-    
-    var view: UIView!
-    
-    init (view: UIView) {
-        super.init()
-        self.view = view
-    }
-    
-    override func transition(
-        container: UIView,
-        fromViewController: UIViewController,
-        toViewController: UIViewController,
-        duration: NSTimeInterval,
-        completion: () -> Void) {
-            
-            let fromView = fromViewController.view
-            let toView = toViewController.view
-            
-            container.addSubview(toView)
-            
-            toView.bottom = fromView.top
-            
-            toView.spring({ () -> Void in
-                toView.bottom = fromView.bottom
-                }, completion: { (finshed) -> Void in
-                    completion ()
-            })
-    }
-
-    override var isInteractive: Bool {
-        get {
-            return true
-        } set (value) {
-            self.isInteractive = value
-        }
-    }
-}
-
-
-
-// MARK: - Base
-
-@objc protocol TransitionManagerDelegate {
     func transition (
         container: UIView,
         fromViewController: UIViewController,
@@ -136,22 +43,16 @@ class MaterialCircleTransitionAnimation: TransitionManagerAnimation {
         duration: NSTimeInterval,
         completion: ()->Void)
     
-    func interactiveTransition (
-        transition: (UIGestureRecognizer, UINavigationControllerOperation)->Void)
+    func interactionTransition (interactionController: UIPercentDrivenInteractiveTransition?) -> UIPercentDrivenInteractiveTransition?
 }
+
 
 class TransitionManagerAnimation: TransitionManagerDelegate {
     
-    // MARK: Properties
+    // MARK: Lifecycle
     
-    var isInteractive: Bool {
-        get {
-            return false
-        } set (value) {
-            self.isInteractive = value
-        }
-    }
-
+    init () {}
+    
     
     // MARK: TransitionManagerDelegate
     
@@ -162,17 +63,16 @@ class TransitionManagerAnimation: TransitionManagerDelegate {
         duration: NSTimeInterval,
         completion: () -> Void) {
             
-        completion()
+            completion()
     }
     
-    func interactiveTransition (transition: (UIGestureRecognizer, UINavigationControllerOperation)->Void) { }
-    
+    func interactionTransition(interactionController: UIPercentDrivenInteractiveTransition?) -> UIPercentDrivenInteractiveTransition? {
+        return interactionController
+    }
 }
 
-class TransitionManager: NSObject,
-UIViewControllerAnimatedTransitioning,
-UIViewControllerTransitioningDelegate,
-UINavigationControllerDelegate {
+
+class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate {
     
     // MARK: Properties
     
@@ -185,8 +85,12 @@ UINavigationControllerDelegate {
     
     // MARK: Lifecycle
     
-    init (transitionAnimation: TransitionManagerAnimations) {
-        delegate  = transitionAnimation.transitionAnimation()
+    init (transitionAnimation: TransitionManagerAnimation) {
+        delegate  = transitionAnimation
+    }
+
+    init (transition: TransitionManagerAnimations) {
+        delegate  = transition.transitionAnimation()
     }
 
     
@@ -225,17 +129,20 @@ UINavigationControllerDelegate {
             return self
     }
     
-    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationControllerForDismissedController(
+        dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return self
     }
     
     
     func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return interactionController
+        let transitionAnimation = delegate as TransitionManagerAnimation
+        return transitionAnimation.interactionTransition(interactionController)
     }
     
     func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return interactionController
+        let transitionAnimation = delegate as TransitionManagerAnimation
+        return transitionAnimation.interactionTransition(interactionController)
     }
     
     
@@ -253,82 +160,8 @@ UINavigationControllerDelegate {
     func navigationController(
         navigationController: UINavigationController,
         interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return interactionController
-    }
-    
-
-}
-
-class InteractionTransitionNavigationController: UINavigationController {
-    
-    
-    // MARK: Properties
-    
-    var transitionManager: TransitionManager?
-    
-    override var delegate: UINavigationControllerDelegate? {
-        didSet {
-            if delegate is TransitionManager {
-                transitionManager = delegate as? TransitionManager
-                checkIsInteractive()
-            }
-        }
-    }
-
-    
-    // MARK: Interaction
-    
-    func checkIsInteractive () {
-        let transitionAnimation = transitionManager?.delegate as TransitionManagerAnimation
-        
-        if transitionAnimation.isInteractive {
-            transitionAnimation.interactiveTransition({ [unowned self] (gesture, operation) -> Void in
-                self.interactiveTransition (gesture, operation: operation)
-            })
-        }
-    }
-    
-    func interactiveTransition (gesture: UIGestureRecognizer, operation: UINavigationControllerOperation) {
-        if gesture is UIPanGestureRecognizer {
-            interactivePan(gesture as UIPanGestureRecognizer, operation: operation)
-        }
-    }
-    
-    func interactivePan (gesture: UIPanGestureRecognizer, operation: UINavigationControllerOperation) {
-        let percent = gesture.translationInView(gesture.view!).x / gesture.view!.bounds.size.width
-        
-        switch gesture.state {
-        case .Began:
-            transitionManager?.interactionController = UIPercentDrivenInteractiveTransition()
-
-            if operation == .Pop {
-                popViewControllerAnimated(true)
-            } else if operation == .Push {
-                pushViewController(self, animated: true)
-            }
-            
-        case .Changed:
-            transitionManager?.interactionController!.updateInteractiveTransition(percent)
-            
-        case .Ended:
-            if percent > 0.5 {
-                transitionManager?.interactionController!.finishInteractiveTransition()
-            } else {
-                transitionManager?.interactionController?.updateInteractiveTransition(0)
-                transitionManager?.interactionController!.cancelInteractiveTransition()
-            }
-            transitionManager?.interactionController = nil
-            
-        default:
-            return
-        }
-    }
-    
-    
-    
-    // MARK: Lifecycle
-    
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        let transitionAnimation = delegate as TransitionManagerAnimation
+        return transitionAnimation.interactionTransition(interactionController)
     }
 }
+
