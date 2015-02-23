@@ -228,3 +228,19 @@ extension UIView {
             })
     }
 }
+
+
+// MARK: Render Extensions
+
+extension UIView {
+    
+    func toImage () -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(bounds.size, opaque, 0.0)
+        drawViewHierarchyInRect(bounds, afterScreenUpdates: false)
+        let img = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return img
+    }
+}
+

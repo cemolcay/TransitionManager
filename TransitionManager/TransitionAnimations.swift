@@ -11,6 +11,7 @@ import UIKit
 enum TransitionManagerAnimations {
     case Fade
     case Left (UINavigationController)
+    case MaterialCircle (CGPoint)
     
     func transitionAnimation () -> TransitionManagerAnimation {
         switch self {
@@ -20,6 +21,9 @@ enum TransitionManagerAnimations {
         case .Left (let nav):
             return LeftTransitionAnimation(navigationController: nav)
             
+        case .MaterialCircle (let center):
+            return MaterialCircleAnimation(center: center)
+        
         default:
             return TransitionManagerAnimation()
         }
@@ -118,4 +122,41 @@ class LeftTransitionAnimation: TransitionManagerAnimation {
     }
 }
 
-
+class MaterialCircleAnimation: TransitionManagerAnimation {
+    
+    var center: CGPoint!
+    
+    init (center: CGPoint) {
+        self.center = center
+    }
+    
+    override func transition(
+        container: UIView,
+        fromViewController: UIViewController,
+        toViewController: UIViewController,
+        duration: NSTimeInterval,
+        completion: () -> Void) {
+        
+        let fromView = fromViewController.view
+        let toView = toViewController.view
+        
+        container.addSubview(toView)
+        
+        let mask = UIView (frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        mask.center = center
+        mask.backgroundColor = UIColor.blackColor()
+        mask.layer.cornerRadius = 15
+        toView.maskView = mask
+        
+        mask.setScale(0.1, y: 0.1)
+        UIView.animateWithDuration(
+            duration,
+            delay: 0,
+            options: UIViewAnimationOptions.CurveEaseInOut,
+            animations: { () -> Void in
+                mask.setScale(50, y: 50)
+            }, completion: {finished in
+                completion ()
+            })
+        }
+}
