@@ -9,10 +9,10 @@ Usage
 
 Copy & paste `TransitionManager.swift` into your project.
 
-Decleare a `TransitionManager` object.  
-Init it with a [`TransitionManagerAnimation`](#Create)  
-Assign it as your navigation controller's delegate if you use navigation controller.  
-Else assign it as your view controller's `transitioningDelegate`.  
+-  Declare a `TransitionManager` object.  
+-  Init it with a [`TransitionManagerAnimation`](#Create)  
+-  Assign it as your navigation controller's delegate if you use navigation controller.  
+  -  Else assign it as your view controller's `transitioningDelegate`.  
 
 ``` swift
 	
@@ -92,7 +92,7 @@ class FadeTransitionAnimation: TransitionManagerAnimation {
 
 ```
 
-One important part is `completion()` must be called because the `TransitionManager` finishes transition after it get called.
+One important part is `completion()` must be called because the `TransitionManager` finishes transition after it gets called.
 
 
 ### Interaction Transition
