@@ -44,7 +44,6 @@ extension UIView {
         }
     }
     
-    
     var left: CGFloat {
         get {
             return self.x
@@ -77,7 +76,6 @@ extension UIView {
         }
     }
     
-    
     var position: CGPoint {
         get {
             return self.frame.origin
@@ -94,7 +92,6 @@ extension UIView {
         }
     }
     
-    
     func leftWithOffset (offset: CGFloat) -> CGFloat {
         return self.left - offset
     }
@@ -110,9 +107,7 @@ extension UIView {
     func bottomWithOffset (offset: CGFloat) -> CGFloat {
         return self.bottom + offset
     }
-    
 }
-
 
 // MARK: Transform Extensions
 
@@ -126,7 +121,6 @@ extension UIView {
         var transform = CATransform3DIdentity
         transform.m34 = 1.0 / -1000.0
         transform = CATransform3DRotate(transform, degreesToRadians(x), 1.0, 0.0, 0.0)
-        
         self.layer.transform = transform
     }
     
@@ -134,7 +128,6 @@ extension UIView {
         var transform = CATransform3DIdentity
         transform.m34 = 1.0 / -1000.0
         transform = CATransform3DRotate(transform, degreesToRadians(y), 0.0, 1.0, 0.0)
-        
         self.layer.transform = transform
     }
     
@@ -142,7 +135,6 @@ extension UIView {
         var transform = CATransform3DIdentity
         transform.m34 = 1.0 / -1000.0
         transform = CATransform3DRotate(transform, degreesToRadians(z), 0.0, 0.0, 1.0)
-        
         self.layer.transform = transform
     }
     
@@ -150,28 +142,23 @@ extension UIView {
         x: CGFloat,
         y: CGFloat,
         z: CGFloat) {
-            var transform = CATransform3DIdentity
-            transform.m34 = 1.0 / -1000.0
-            transform = CATransform3DRotate(transform, degreesToRadians(x), 1.0, 0.0, 0.0)
-            transform = CATransform3DRotate(transform, degreesToRadians(y), 0.0, 1.0, 0.0)
-            transform = CATransform3DRotate(transform, degreesToRadians(z), 0.0, 0.0, 1.0)
-            
-            self.layer.transform = transform
+        var transform = CATransform3DIdentity
+        transform.m34 = 1.0 / -1000.0
+        transform = CATransform3DRotate(transform, degreesToRadians(x), 1.0, 0.0, 0.0)
+        transform = CATransform3DRotate(transform, degreesToRadians(y), 0.0, 1.0, 0.0)
+        transform = CATransform3DRotate(transform, degreesToRadians(z), 0.0, 0.0, 1.0)
+        self.layer.transform = transform
     }
-    
     
     func setScale (
         x: CGFloat,
         y: CGFloat) {
-            var transform = CATransform3DIdentity
-            transform.m34 = 1.0 / -1000.0
-            transform = CATransform3DScale(transform, x, y, 1)
-            
-            self.layer.transform = transform
+        var transform = CATransform3DIdentity
+        transform.m34 = 1.0 / -1000.0
+        transform = CATransform3DScale(transform, x, y, 1)
+        self.layer.transform = transform
     }
-    
 }
-
 
 // MARK: Animation Extensions
 
@@ -184,40 +171,40 @@ extension UIView {
     func spring (
         animations: (()->Void),
         completion: ((Bool)->Void)? = nil) {
-            spring(UIViewAnimationDuration,
-                animations: animations,
-                completion: completion)
+        spring(UIViewAnimationDuration,
+            animations: animations,
+            completion: completion)
     }
     
     func spring (
         duration: NSTimeInterval,
         animations: (()->Void),
         completion: ((Bool)->Void)? = nil) {
-            UIView.animateWithDuration(UIViewAnimationDuration,
-                delay: 0,
-                usingSpringWithDamping: UIViewAnimationSpringDamping,
-                initialSpringVelocity: UIViewAnimationSpringVelocity,
-                options: UIViewAnimationOptions.AllowAnimatedContent,
-                animations: animations,
-                completion: completion)
+        UIView.animateWithDuration(UIViewAnimationDuration,
+            delay: 0,
+            usingSpringWithDamping: UIViewAnimationSpringDamping,
+            initialSpringVelocity: UIViewAnimationSpringVelocity,
+            options: UIViewAnimationOptions.AllowAnimatedContent,
+            animations: animations,
+            completion: completion)
     }
     
     func animate (
         duration: NSTimeInterval,
         animations: (()->Void),
         completion: ((Bool)->Void)? = nil) {
-            UIView.animateWithDuration(duration,
-                animations: animations,
-                completion: completion)
+        UIView.animateWithDuration(duration,
+            animations: animations,
+            completion: completion)
     }
     
     func animate (
         animations: (()->Void),
         completion: ((Bool)->Void)? = nil) {
-            animate(
-                UIViewAnimationDuration,
-                animations: animations,
-                completion: completion)
+        animate(
+            UIViewAnimationDuration,
+            animations: animations,
+            completion: completion)
     }
     
     func pop () {
@@ -233,13 +220,11 @@ extension UIView {
 // MARK: Render Extensions
 
 extension UIView {
-    
     func toImage () -> UIImage {
         UIGraphicsBeginImageContextWithOptions(bounds.size, opaque, 0.0)
         drawViewHierarchyInRect(bounds, afterScreenUpdates: false)
         let img = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        
         return img
     }
 }

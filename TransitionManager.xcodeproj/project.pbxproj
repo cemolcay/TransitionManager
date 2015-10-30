@@ -7,17 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B261DED21A8CA55D0030D18B /* AnimationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B261DED11A8CA55D0030D18B /* AnimationHelper.swift */; };
-		B2C5E8CE1A9345DB00E80BF0 /* DismissSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C5E8CD1A9345DB00E80BF0 /* DismissSegue.swift */; };
-		B2CF32AC1A8B8119005A20FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF32AB1A8B8119005A20FB /* AppDelegate.swift */; };
-		B2CF32AE1A8B8119005A20FB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF32AD1A8B8119005A20FB /* ViewController.swift */; };
-		B2CF32B11A8B8119005A20FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2CF32AF1A8B8119005A20FB /* Main.storyboard */; };
-		B2CF32B31A8B8119005A20FB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2CF32B21A8B8119005A20FB /* Images.xcassets */; };
-		B2CF32B61A8B8119005A20FB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2CF32B41A8B8119005A20FB /* LaunchScreen.xib */; };
+		B21AAA081BE401BC00A1DDFF /* AnimationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21AA9FA1BE401BC00A1DDFF /* AnimationHelper.swift */; };
+		B21AAA091BE401BC00A1DDFF /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21AA9FB1BE401BC00A1DDFF /* ModalViewController.swift */; };
+		B21AAA0A1BE401BC00A1DDFF /* TransitionAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21AA9FC1BE401BC00A1DDFF /* TransitionAnimations.swift */; };
+		B21AAA0B1BE401BC00A1DDFF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21AA9FD1BE401BC00A1DDFF /* ViewController.swift */; };
+		B21AAA0C1BE401BC00A1DDFF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21AA9FF1BE401BC00A1DDFF /* AppDelegate.swift */; };
+		B21AAA0D1BE401BC00A1DDFF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B21AAA001BE401BC00A1DDFF /* LaunchScreen.xib */; };
+		B21AAA0E1BE401BC00A1DDFF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B21AAA021BE401BC00A1DDFF /* Main.storyboard */; };
+		B21AAA0F1BE401BC00A1DDFF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B21AAA041BE401BC00A1DDFF /* Images.xcassets */; };
+		B21AAA101BE401BC00A1DDFF /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B21AAA051BE401BC00A1DDFF /* Info.plist */; };
+		B21AAA111BE401BC00A1DDFF /* TransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21AAA071BE401BC00A1DDFF /* TransitionManager.swift */; };
 		B2CF32C21A8B8119005A20FB /* TransitionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF32C11A8B8119005A20FB /* TransitionManagerTests.swift */; };
-		B2CF32CC1A8B8120005A20FB /* TransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF32CB1A8B8120005A20FB /* TransitionManager.swift */; };
-		B2CF32CE1A8B8130005A20FB /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CF32CD1A8B8130005A20FB /* DetailViewController.swift */; };
-		B2D04D0E1A8CA42200F48F0E /* TransitionAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D04D0D1A8CA42200F48F0E /* TransitionAnimations.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,21 +31,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B261DED11A8CA55D0030D18B /* AnimationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationHelper.swift; sourceTree = "<group>"; };
-		B2C5E8CD1A9345DB00E80BF0 /* DismissSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissSegue.swift; sourceTree = "<group>"; };
+		B21AA9FA1BE401BC00A1DDFF /* AnimationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationHelper.swift; sourceTree = "<group>"; };
+		B21AA9FB1BE401BC00A1DDFF /* ModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
+		B21AA9FC1BE401BC00A1DDFF /* TransitionAnimations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionAnimations.swift; sourceTree = "<group>"; };
+		B21AA9FD1BE401BC00A1DDFF /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B21AA9FF1BE401BC00A1DDFF /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B21AAA011BE401BC00A1DDFF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		B21AAA031BE401BC00A1DDFF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B21AAA041BE401BC00A1DDFF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		B21AAA051BE401BC00A1DDFF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B21AAA071BE401BC00A1DDFF /* TransitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionManager.swift; sourceTree = "<group>"; };
 		B2CF32A61A8B8119005A20FB /* TransitionManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransitionManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		B2CF32AA1A8B8119005A20FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B2CF32AB1A8B8119005A20FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B2CF32AD1A8B8119005A20FB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		B2CF32B01A8B8119005A20FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		B2CF32B21A8B8119005A20FB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		B2CF32B51A8B8119005A20FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		B2CF32BB1A8B8119005A20FB /* TransitionManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransitionManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2CF32C01A8B8119005A20FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2CF32C11A8B8119005A20FB /* TransitionManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionManagerTests.swift; sourceTree = "<group>"; };
-		B2CF32CB1A8B8120005A20FB /* TransitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionManager.swift; sourceTree = "<group>"; };
-		B2CF32CD1A8B8130005A20FB /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		B2D04D0D1A8CA42200F48F0E /* TransitionAnimations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionAnimations.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +65,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B21AA9F91BE401BC00A1DDFF /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				B21AA9FC1BE401BC00A1DDFF /* TransitionAnimations.swift */,
+				B21AA9FA1BE401BC00A1DDFF /* AnimationHelper.swift */,
+				B21AA9FD1BE401BC00A1DDFF /* ViewController.swift */,
+				B21AA9FB1BE401BC00A1DDFF /* ModalViewController.swift */,
+			);
+			path = Demo;
+			sourceTree = "<group>";
+		};
+		B21AA9FE1BE401BC00A1DDFF /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				B21AA9FF1BE401BC00A1DDFF /* AppDelegate.swift */,
+				B21AAA001BE401BC00A1DDFF /* LaunchScreen.xib */,
+				B21AAA021BE401BC00A1DDFF /* Main.storyboard */,
+				B21AAA041BE401BC00A1DDFF /* Images.xcassets */,
+				B21AAA051BE401BC00A1DDFF /* Info.plist */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		B21AAA061BE401BC00A1DDFF /* TransitionManager */ = {
+			isa = PBXGroup;
+			children = (
+				B21AAA071BE401BC00A1DDFF /* TransitionManager.swift */,
+			);
+			path = TransitionManager;
+			sourceTree = "<group>";
+		};
 		B2CF329D1A8B8119005A20FB = {
 			isa = PBXGroup;
 			children = (
@@ -87,27 +117,11 @@
 		B2CF32A81A8B8119005A20FB /* TransitionManager */ = {
 			isa = PBXGroup;
 			children = (
-				B2CF32CB1A8B8120005A20FB /* TransitionManager.swift */,
-				B2D04D0D1A8CA42200F48F0E /* TransitionAnimations.swift */,
-				B261DED11A8CA55D0030D18B /* AnimationHelper.swift */,
-				B2CF32AD1A8B8119005A20FB /* ViewController.swift */,
-				B2CF32CD1A8B8130005A20FB /* DetailViewController.swift */,
-				B2CF32AF1A8B8119005A20FB /* Main.storyboard */,
-				B2CF32A91A8B8119005A20FB /* Supporting Files */,
-				B2C5E8CD1A9345DB00E80BF0 /* DismissSegue.swift */,
+				B21AAA061BE401BC00A1DDFF /* TransitionManager */,
+				B21AA9F91BE401BC00A1DDFF /* Demo */,
+				B21AA9FE1BE401BC00A1DDFF /* SupportingFiles */,
 			);
 			path = TransitionManager;
-			sourceTree = "<group>";
-		};
-		B2CF32A91A8B8119005A20FB /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				B2CF32B21A8B8119005A20FB /* Images.xcassets */,
-				B2CF32B41A8B8119005A20FB /* LaunchScreen.xib */,
-				B2CF32AB1A8B8119005A20FB /* AppDelegate.swift */,
-				B2CF32AA1A8B8119005A20FB /* Info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		B2CF32BE1A8B8119005A20FB /* TransitionManagerTests */ = {
@@ -171,6 +185,7 @@
 		B2CF329E1A8B8119005A20FB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Cem Olcay";
 				TargetAttributes = {
@@ -207,9 +222,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B2CF32B11A8B8119005A20FB /* Main.storyboard in Resources */,
-				B2CF32B61A8B8119005A20FB /* LaunchScreen.xib in Resources */,
-				B2CF32B31A8B8119005A20FB /* Images.xcassets in Resources */,
+				B21AAA101BE401BC00A1DDFF /* Info.plist in Resources */,
+				B21AAA0F1BE401BC00A1DDFF /* Images.xcassets in Resources */,
+				B21AAA0D1BE401BC00A1DDFF /* LaunchScreen.xib in Resources */,
+				B21AAA0E1BE401BC00A1DDFF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,13 +243,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B2D04D0E1A8CA42200F48F0E /* TransitionAnimations.swift in Sources */,
-				B2CF32CC1A8B8120005A20FB /* TransitionManager.swift in Sources */,
-				B2C5E8CE1A9345DB00E80BF0 /* DismissSegue.swift in Sources */,
-				B261DED21A8CA55D0030D18B /* AnimationHelper.swift in Sources */,
-				B2CF32AE1A8B8119005A20FB /* ViewController.swift in Sources */,
-				B2CF32AC1A8B8119005A20FB /* AppDelegate.swift in Sources */,
-				B2CF32CE1A8B8130005A20FB /* DetailViewController.swift in Sources */,
+				B21AAA111BE401BC00A1DDFF /* TransitionManager.swift in Sources */,
+				B21AAA081BE401BC00A1DDFF /* AnimationHelper.swift in Sources */,
+				B21AAA0A1BE401BC00A1DDFF /* TransitionAnimations.swift in Sources */,
+				B21AAA0B1BE401BC00A1DDFF /* ViewController.swift in Sources */,
+				B21AAA0C1BE401BC00A1DDFF /* AppDelegate.swift in Sources */,
+				B21AAA091BE401BC00A1DDFF /* ModalViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,20 +271,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		B2CF32AF1A8B8119005A20FB /* Main.storyboard */ = {
+		B21AAA001BE401BC00A1DDFF /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				B2CF32B01A8B8119005A20FB /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		B2CF32B41A8B8119005A20FB /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B2CF32B51A8B8119005A20FB /* Base */,
+				B21AAA011BE401BC00A1DDFF /* Base */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		B21AAA021BE401BC00A1DDFF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B21AAA031BE401BC00A1DDFF /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -358,8 +373,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = TransitionManager/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				INFOPLIST_FILE = "$(SRCROOT)/TransitionManager/SupportingFiles/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -369,8 +384,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = TransitionManager/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				INFOPLIST_FILE = "$(SRCROOT)/TransitionManager/SupportingFiles/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
