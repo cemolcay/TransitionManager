@@ -130,41 +130,34 @@ You can create a `TransitionManagerAnimation` container enum and give it all you
 Write a func that returns correct transition animation in enum
 
 ``` swift
-	enum TransitionManagerAnimations {
-	    case Fade
-	    case Left (UINavigationController)
-	    
-	    func transitionAnimation () -> TransitionManagerAnimation {
-	        switch self {
-	        case .Fade:
-	            return FadeTransitionAnimation()
-	            
-	        case .Left (let nav):
-	            return LeftTransitionAnimation(navigationController: nav)
-	            
-	        default:
-	            return TransitionManagerAnimation()
-	        }
-	    }
-	}
+enum TransitionManagerAnimations {
+    case Fade
+    case Pull
+    
+    func transitionAnimation () -> TransitionManagerAnimation {
+        switch self {
+        case .Fade:
+            return FadeTransitionAnimation()
+        case .Pull:
+            return PullTransitionAnimation()
+        }
+    }
+}
 ```
 
 Extend `TransitionManager` and write a new init method like
 
 ``` swift
-
-	extension TransitionManager {
-	    
-	    convenience init (transition: TransitionManagerAnimations) {
-	        self.init (transitionAnimation: transition.transitionAnimation())
-	    }
-	}
-
+extension TransitionManager {
+    convenience init (transition: TransitionManagerAnimations) {
+        self.init (transitionAnimation: transition.transitionAnimation())
+    }
+}
 ```
 
 Now you can create `TransitionManager` in your view controller like
 
 ``` swift
-	transition = TransitionManager (transition: .Left(navigationController!))
-	navigationController?.delegate = transition
+transition = TransitionManager (transition: .Left(navigationController!))
+navigationController?.delegate = transition
 ```
