@@ -3,6 +3,19 @@ TransitionManager
 
 Painless custom transitioning. Easy extend, easy setup, just focus on animations.
 
+Install
+----
+
+### Cocoapods
+
+``` ruby
+use_frameworks!
+pod 'TransitionManager'
+```
+
+### Manual
+
+Copy & paste `TransitionManager` folder into your project.
 
 Usage 
 -----
