@@ -123,7 +123,7 @@ You can create a `TransitionManagerAnimation` container enum and give it all you
 ``` swift
 	enum TransitionManagerAnimations {
 	    case Fade
-	    case Left
+	    case Pull
 	}
 ```
 
