@@ -40,19 +40,19 @@ class FadeTransitionAnimation: TransitionManagerAnimation {
         isDismissing: Bool,
         duration: NSTimeInterval,
         completion: () -> Void) {
-            if isDismissing {
-                closeAnimation(container,
-                    fromViewController: fromViewController,
-                    toViewController: toViewController,
-                    duration: duration,
-                    completion: completion)
-            } else {
-                openAnimation(container,
-                    fromViewController: fromViewController,
-                    toViewController: toViewController,
-                    duration: duration,
-                    completion: completion)
-            }
+        if isDismissing {
+            closeAnimation(container,
+                fromViewController: fromViewController,
+                toViewController: toViewController,
+                duration: duration,
+                completion: completion)
+        } else {
+            openAnimation(container,
+                fromViewController: fromViewController,
+                toViewController: toViewController,
+                duration: duration,
+                completion: completion)
+        }
     }
 
     func openAnimation (

@@ -45,19 +45,21 @@ Create a subclass of `TransitionManagerAnimation`
 ##### TransitionManagerDelegate <a id="Delegate"></a>
 
 ``` swift
+protocol TransitionManagerDelegate {
 
-	protocol TransitionManagerDelegate {
-	        
-	    func transition (
-	        container: UIView,
-	        fromViewController: UIViewController,
-	        toViewController: UIViewController,
-	        duration: NSTimeInterval,
-	        completion: ()->Void)
-	        
-	    var interactionTransitionController: UIPercentDrivenInteractiveTransition? { get set }
-	}
+    /// Transition nimation method implementation
+    func transition(
+        container: UIView,
+        fromViewController: UIViewController,
+        toViewController: UIViewController,
+        isDismissing: Bool,
+        duration: NSTimeInterval,
+        completion: () -> Void)
 
+    /// Interactive transitions,
+    /// update percent in gesture handler
+    var interactionTransitionController: UIPercentDrivenInteractiveTransition? { get set }
+}
 ```
 
 For transition animation, we should override `transition` func and write our custom animation in it.
@@ -65,29 +67,27 @@ For transition animation, we should override `transition` func and write our cus
 ``` swift
 
 class FadeTransitionAnimation: TransitionManagerAnimation {
-    
-    override func transition (
+    override func transition(
         container: UIView,
         fromViewController: UIViewController,
         toViewController: UIViewController,
+        isDismissing: Bool,
         duration: NSTimeInterval,
-        completion: ()->Void) {
-            
-            let fromView = fromViewController.view
-            let toView = toViewController.view
-            
-            container.addSubview(toView)
-            toView.alpha = 0
-            
-            UIView.animateWithDuration(
-                duration,
-                animations: {
-                    toView.alpha = 1
-                },
-                completion: { finished in
-                    completion ()
-            })
-    }
+        completion: () -> Void) {
+        if isDismissing {
+            closeAnimation(container,
+                fromViewController: fromViewController,
+                toViewController: toViewController,
+                duration: duration,
+                completion: completion)
+        } else {
+            openAnimation(container,
+                fromViewController: fromViewController,
+                toViewController: toViewController,
+                duration: duration,
+                completion: completion)
+        }
+    }    
 }
 
 ```
@@ -96,53 +96,6 @@ One important part is `completion()` must be called because the `TransitionManag
 
 
 ### Interaction Transition
-
-Create a `TransitionManagerAnimation` subclass and write an initilizer with `UINavigationController` parameter.
-
-Add its `view` a pan gesture
-
-``` swift
-	class LeftTransitionAnimation: TransitionManagerAnimation {
-	    
-	    var navigationController: UINavigationController!
-	    
-	    init (navigationController: UINavigationController) {
-	        super.init()
-	        
-	        self.navigationController = navigationController
-	        self.navigationController.view.addGestureRecognizer(UIPanGestureRecognizer (target: self, action: Selector("didPan:")))
-	    }
-	    
-	}
-```
-
-We will update `interactionTransitionController` variable in [`TransitionManagerDelegate`](#Delegate) in gesture handler.
-
-``` swift
-    func didPan (gesture: UIPanGestureRecognizer) {
-        let percent = gesture.translationInView(gesture.view!).x / gesture.view!.bounds.size.width
-        
-        switch gesture.state {
-        case .Began:
-            interactionTransitionController = UIPercentDrivenInteractiveTransition()
-            navigationController.popViewControllerAnimated(true)
-            
-        case .Changed:
-            interactionTransitionController!.updateInteractiveTransition(percent)
-            
-        case .Ended:
-            if percent > 0.5 {
-                interactionTransitionController!.finishInteractiveTransition()
-            } else {
-                interactionTransitionController!.cancelInteractiveTransition()
-            }
-            interactionTransitionController = nil
-            
-        default:
-            return
-        }
-    }
-```
 
 Interaction transition has 3 parts:
 * Init `interactionTransitionController` and either pop or push navigation controller when gesture (interaction) starts.
