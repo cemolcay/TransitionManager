@@ -149,8 +149,8 @@ Extend `TransitionManager` and write a new init method like
 
 ``` swift
 extension TransitionManager {
-    convenience init (transition: TransitionManagerAnimations) {
-        self.init (transitionAnimation: transition.transitionAnimation())
+    convenience init(transition: TransitionManagerAnimations) {
+        self.init(transitionAnimation: transition.transitionAnimation())
     }
 }
 ```
@@ -158,6 +158,6 @@ extension TransitionManager {
 Now you can create `TransitionManager` in your view controller like
 
 ``` swift
-transition = TransitionManager (transition: .Left(navigationController!))
+transition = TransitionManager(transition: .Pull)
 navigationController?.delegate = transition
 ```
