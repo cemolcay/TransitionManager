@@ -94,7 +94,7 @@ class FadeTransitionAnimation: TransitionManagerAnimation {
 // MARK: Pull Transition
 
 class PullTransitionAnimation: TransitionManagerAnimation {
-    private weak var panningViewController: UIViewController!
+    private weak var panningViewController: UIViewController?
 
     override func transition(
         container: UIView,
@@ -159,7 +159,7 @@ class PullTransitionAnimation: TransitionManagerAnimation {
         switch pan.state {
         case .Began:
             interactionTransitionController = UIPercentDrivenInteractiveTransition()
-            panningViewController.dismissViewControllerAnimated(true, completion: {
+            panningViewController?.dismissViewControllerAnimated(true, completion: {
                 self.interactionTransitionController?.finishInteractiveTransition()
             })
         case .Changed:
@@ -167,9 +167,11 @@ class PullTransitionAnimation: TransitionManagerAnimation {
         case .Ended:
             if percent > 0.5 {
                 interactionTransitionController!.finishInteractiveTransition()
+                panningViewController = nil
             } else {
                 interactionTransitionController!.cancelInteractiveTransition()
             }
+            interactionTransitionController = nil
         default:
             return
         }

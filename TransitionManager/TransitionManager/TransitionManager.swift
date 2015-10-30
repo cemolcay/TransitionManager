@@ -75,8 +75,9 @@ class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UIView
             isDismissing: isDismissing,
             duration: transitionDuration(transitionContext),
             completion: {
+                print("\(!transitionContext.transitionWasCancelled())")
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
-        })
+            })
     }
 
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
