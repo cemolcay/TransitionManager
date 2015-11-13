@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "TransitionManager"
-  s.version      = "0.1"
+  s.version      = "0.2"
   s.summary      = "Painless custom transitioning. Easy extend, easy setup, just focus on animations."
 
   # This description is used to generate tags and improve search results.
@@ -283,7 +283,7 @@ Now you can create `TransitionManager` in your view controller like
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/cemolcay/TransitionManager.git", :tag => "v0.1" }
+  s.source       = { :git => "https://github.com/cemolcay/TransitionManager.git", :tag => "v0.2" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
