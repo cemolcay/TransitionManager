@@ -115,6 +115,11 @@ class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UIView
         animationControllerForOperation operation: UINavigationControllerOperation,
         fromViewController fromVC: UIViewController,
         toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if operation == .Pop {
+            isDismissing = true
+        } else {
+            isDismissing = false
+        }
         return self
     }
 
