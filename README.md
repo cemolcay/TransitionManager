@@ -6,7 +6,7 @@ Painless custom transitioning. Easy extend, easy setup, just focus on animations
 Install
 ----
 
-### Cocoapods
+### CocoaPods
 
 ``` ruby
 use_frameworks!
