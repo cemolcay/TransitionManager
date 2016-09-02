@@ -92,46 +92,46 @@ extension UIView {
         }
     }
     
-    func leftWithOffset (offset: CGFloat) -> CGFloat {
+    func leftWithOffset (_ offset: CGFloat) -> CGFloat {
         return self.left - offset
     }
     
-    func rightWithOffset (offset: CGFloat) -> CGFloat {
+    func rightWithOffset (_ offset: CGFloat) -> CGFloat {
         return self.right + offset
     }
     
-    func topWithOffset (offset: CGFloat) -> CGFloat {
+    func topWithOffset (_ offset: CGFloat) -> CGFloat {
         return self.top - offset
     }
     
-    func bottomWithOffset (offset: CGFloat) -> CGFloat {
+    func bottomWithOffset (_ offset: CGFloat) -> CGFloat {
         return self.bottom + offset
     }
 }
 
 // MARK: Transform Extensions
 
-func degreesToRadians (angle: CGFloat) -> CGFloat {
+func degreesToRadians (_ angle: CGFloat) -> CGFloat {
     return (CGFloat (M_PI) * angle) / 180.0
 }
 
 extension UIView {
     
-    func setRotationX (x: CGFloat) {
+    func setRotationX (_ x: CGFloat) {
         var transform = CATransform3DIdentity
         transform.m34 = 1.0 / -1000.0
         transform = CATransform3DRotate(transform, degreesToRadians(x), 1.0, 0.0, 0.0)
         self.layer.transform = transform
     }
     
-    func setRotationY (y: CGFloat) {
+    func setRotationY (_ y: CGFloat) {
         var transform = CATransform3DIdentity
         transform.m34 = 1.0 / -1000.0
         transform = CATransform3DRotate(transform, degreesToRadians(y), 0.0, 1.0, 0.0)
         self.layer.transform = transform
     }
     
-    func setRotationZ (z: CGFloat) {
+    func setRotationZ (_ z: CGFloat) {
         var transform = CATransform3DIdentity
         transform.m34 = 1.0 / -1000.0
         transform = CATransform3DRotate(transform, degreesToRadians(z), 0.0, 0.0, 1.0)
@@ -139,7 +139,7 @@ extension UIView {
     }
     
     func setRotation (
-        x: CGFloat,
+        _ x: CGFloat,
         y: CGFloat,
         z: CGFloat) {
         var transform = CATransform3DIdentity
@@ -151,7 +151,7 @@ extension UIView {
     }
     
     func setScale (
-        x: CGFloat,
+        _ x: CGFloat,
         y: CGFloat) {
         var transform = CATransform3DIdentity
         transform.m34 = 1.0 / -1000.0
@@ -162,14 +162,14 @@ extension UIView {
 
 // MARK: Animation Extensions
 
-let UIViewAnimationDuration: NSTimeInterval = 1
+let UIViewAnimationDuration: TimeInterval = 1
 let UIViewAnimationSpringDamping: CGFloat = 0.5
 let UIViewAnimationSpringVelocity: CGFloat = 0.5
 
 extension UIView {
     
     func spring (
-        animations: (()->Void),
+        _ animations: (()->Void),
         completion: ((Bool)->Void)? = nil) {
         spring(UIViewAnimationDuration,
             animations: animations,
@@ -177,29 +177,29 @@ extension UIView {
     }
     
     func spring (
-        duration: NSTimeInterval,
+        _ duration: TimeInterval,
         animations: (()->Void),
         completion: ((Bool)->Void)? = nil) {
-        UIView.animateWithDuration(UIViewAnimationDuration,
+        UIView.animate(withDuration: UIViewAnimationDuration,
             delay: 0,
             usingSpringWithDamping: UIViewAnimationSpringDamping,
             initialSpringVelocity: UIViewAnimationSpringVelocity,
-            options: UIViewAnimationOptions.AllowAnimatedContent,
+            options: UIViewAnimationOptions.allowAnimatedContent,
             animations: animations,
             completion: completion)
     }
     
     func animate (
-        duration: NSTimeInterval,
+        _ duration: TimeInterval,
         animations: (()->Void),
         completion: ((Bool)->Void)? = nil) {
-        UIView.animateWithDuration(duration,
+        UIView.animate(withDuration: duration,
             animations: animations,
             completion: completion)
     }
     
     func animate (
-        animations: (()->Void),
+        _ animations: (()->Void),
         completion: ((Bool)->Void)? = nil) {
         animate(
             UIViewAnimationDuration,
@@ -221,11 +221,11 @@ extension UIView {
 
 extension UIView {
     func toImage () -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(bounds.size, opaque, 0.0)
-        drawViewHierarchyInRect(bounds, afterScreenUpdates: false)
+        UIGraphicsBeginImageContextWithOptions(bounds.size, isOpaque, 0.0)
+        drawHierarchy(in: bounds, afterScreenUpdates: false)
         let img = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return img
+        return img!
     }
 }
 

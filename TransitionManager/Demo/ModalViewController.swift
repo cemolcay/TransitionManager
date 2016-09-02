@@ -12,7 +12,7 @@ class ModalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let button = DemoButton(title: "Back", action: {
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         })
         button.center.x = view.center.x
         button.y = 50

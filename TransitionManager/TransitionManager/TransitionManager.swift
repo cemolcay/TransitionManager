@@ -8,124 +8,116 @@
 
 import UIKit
 
-protocol TransitionManagerDelegate {
+public protocol TransitionManagerDelegate {
 
-    /// Transition animation method implementation
-    func transition(
-        container: UIView,
-        fromViewController: UIViewController,
-        toViewController: UIViewController,
-        isDismissing: Bool,
-        duration: NSTimeInterval,
-        completion: () -> Void)
+  /// Transition animation method implementation
+  func transition(
+    _ container: UIView,
+    fromViewController: UIViewController,
+    toViewController: UIViewController,
+    isDismissing: Bool,
+    duration: TimeInterval,
+    completion: @escaping () -> Void)
 
-    /// Interactive transitions,
-    /// update percent in gesture handler
-    var interactionTransitionController: UIPercentDrivenInteractiveTransition? { get set }
+  /// Interactive transitions,
+  /// update percent in gesture handler
+  var interactionTransitionController: UIPercentDrivenInteractiveTransition? { get set }
 }
 
-class TransitionManagerAnimation: NSObject, TransitionManagerDelegate {
+open class TransitionManagerAnimation: NSObject, TransitionManagerDelegate {
 
-    // MARK: TransitionManagerDelegate
+  // MARK: TransitionManagerDelegate
+  open func transition(
+    _ container: UIView,
+    fromViewController: UIViewController,
+    toViewController: UIViewController,
+    isDismissing: Bool,
+    duration: TimeInterval,
+    completion: @escaping () -> Void) {
+    completion()
+  }
 
-    func transition(
-        container: UIView,
-        fromViewController: UIViewController,
-        toViewController: UIViewController,
-        isDismissing: Bool,
-        duration: NSTimeInterval,
-        completion: () -> Void) {
-        completion()
+  fileprivate var _interactionTransitionController: UIPercentDrivenInteractiveTransition? = nil
+  open var interactionTransitionController: UIPercentDrivenInteractiveTransition? {
+    get {
+      return _interactionTransitionController
+    } set {
+      _interactionTransitionController = newValue
     }
-
-    private var _interactionTransitionController: UIPercentDrivenInteractiveTransition? = nil
-    var interactionTransitionController: UIPercentDrivenInteractiveTransition? {
-        get {
-            return _interactionTransitionController
-        } set {
-            _interactionTransitionController = newValue
-        }
-    }
+  }
 }
 
-class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate {
+open class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate {
+  fileprivate var transitionAnimation: TransitionManagerAnimation!
+  fileprivate var isDismissing: Bool = false
+  fileprivate var duration: TimeInterval = 0.30
 
-    // MARK: Properties
+  // MARK: Lifecycle
+  public init (transitionAnimation: TransitionManagerAnimation) {
+    self.transitionAnimation = transitionAnimation
+  }
 
-    private var transitionAnimation: TransitionManagerAnimation!
-    private var isDismissing: Bool = false
-    private var duration: NSTimeInterval = 0.30
+  // MARK: UIViewControllerAnimatedTransitioning
+  open func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+    let container = transitionContext.containerView
+    let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)
+    let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)
+    transitionAnimation.transition(
+      container,
+      fromViewController: fromViewController!,
+      toViewController: toViewController!,
+      isDismissing: isDismissing,
+      duration: transitionDuration(using: transitionContext),
+      completion: {
+        transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+    })
+  }
 
-    // MARK: Lifecycle
+  open func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+    return duration
+  }
 
-    init (transitionAnimation: TransitionManagerAnimation) {
-        self.transitionAnimation = transitionAnimation
+  // MARK: UIViewControllerTransitioningDelegate
+  open func animationController(
+    forPresented presented: UIViewController,
+    presenting: UIViewController,
+    source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    isDismissing = false
+    return self
+  }
+
+  open func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    isDismissing = true
+    return self
+  }
+
+  open func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    isDismissing = false
+    return transitionAnimation.interactionTransitionController
+  }
+
+  open func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    isDismissing = true
+    return transitionAnimation.interactionTransitionController
+  }
+
+  // MARK: UINavigationControllerDelegate
+  open func navigationController(
+    _ navigationController: UINavigationController,
+    animationControllerFor operation: UINavigationControllerOperation,
+    from fromVC: UIViewController,
+    to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    if operation == .pop {
+      isDismissing = true
+    } else {
+      isDismissing = false
     }
+    return self
+  }
 
-    // MARK: UIViewControllerAnimatedTransitioning
-
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        let container = transitionContext.containerView()
-        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
-        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
-        transitionAnimation.transition(
-        container!,
-        fromViewController: fromViewController!,
-        toViewController: toViewController!,
-        isDismissing: isDismissing,
-        duration: transitionDuration(transitionContext),
-        completion: {
-            transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
-        })
-    }
-
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-        return duration
-    }
-
-    // MARK: UIViewControllerTransitioningDelegate
-
-    func animationControllerForPresentedController(
-        presented: UIViewController,
-        presentingController presenting: UIViewController,
-        sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-            isDismissing = false
-            return self
-    }
-
-    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-            isDismissing = true
-            return self
-    }
-
-    func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        isDismissing = false
-        return transitionAnimation.interactionTransitionController
-    }
-
-    func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        isDismissing = true
-        return transitionAnimation.interactionTransitionController
-    }
-
-    // MARK: UINavigationControllerDelegate
-
-    func navigationController(
-        navigationController: UINavigationController,
-        animationControllerForOperation operation: UINavigationControllerOperation,
-        fromViewController fromVC: UIViewController,
-        toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if operation == .Pop {
-            isDismissing = true
-        } else {
-            isDismissing = false
-        }
-        return self
-    }
-
-    func navigationController(
-        navigationController: UINavigationController,
-        interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return transitionAnimation.interactionTransitionController
-    }
+  open func navigationController(
+    _ navigationController: UINavigationController,
+    interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    return transitionAnimation.interactionTransitionController
+  }
 }
