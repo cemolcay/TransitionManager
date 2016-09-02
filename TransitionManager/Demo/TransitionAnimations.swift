@@ -43,10 +43,10 @@ class FadeTransitionAnimation: TransitionManagerAnimation {
     if isDismissing {
       closeAnimation(
         container,
-       fromViewController: fromViewController,
-       toViewController: toViewController,
-       duration: duration,
-       completion: completion)
+        fromViewController: fromViewController,
+        toViewController: toViewController,
+        duration: duration,
+        completion: completion)
     } else {
       openAnimation(
         container,
@@ -73,7 +73,7 @@ class FadeTransitionAnimation: TransitionManagerAnimation {
         finished in
         fromViewController.view.alpha = 1
         completion()
-      })
+    })
   }
 
   func closeAnimation (
@@ -110,10 +110,10 @@ class PullTransitionAnimation: TransitionManagerAnimation {
     if isDismissing {
       closeAnimation(
         container,
-       fromViewController: fromViewController,
-       toViewController: toViewController,
-       duration: duration,
-       completion: completion)
+        fromViewController: fromViewController,
+        toViewController: toViewController,
+        duration: duration,
+        completion: completion)
     } else {
       openAnimation(
         container,
@@ -141,7 +141,7 @@ class PullTransitionAnimation: TransitionManagerAnimation {
       }, completion: {
         finished in
         completion()
-      })
+    })
   }
 
   func closeAnimation (
@@ -159,7 +159,7 @@ class PullTransitionAnimation: TransitionManagerAnimation {
       }, completion: {
         finished in
         completion()
-      })
+    })
   }
 
   func handlePan(_ pan: UIPanGestureRecognizer) {

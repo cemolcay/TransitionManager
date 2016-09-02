@@ -9,13 +9,13 @@
 import UIKit
 
 class ModalViewController: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        let button = DemoButton(title: "Back", action: {
-            self.dismiss(animated: true, completion: nil)
-        })
-        button.center.x = view.center.x
-        button.y = 50
-        view.addSubview(button)
-    }
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    let button = DemoButton(title: "Back", action: {
+      self.dismiss(animated: true, completion: nil)
+    })
+    button.center.x = view.center.x
+    button.y = 50
+    view.addSubview(button)
+  }
 }

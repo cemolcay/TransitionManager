@@ -37,14 +37,7 @@ open class TransitionManagerAnimation: NSObject, TransitionManagerDelegate {
     completion()
   }
 
-  fileprivate var _interactionTransitionController: UIPercentDrivenInteractiveTransition? = nil
-  open var interactionTransitionController: UIPercentDrivenInteractiveTransition? {
-    get {
-      return _interactionTransitionController
-    } set {
-      _interactionTransitionController = newValue
-    }
-  }
+  open var interactionTransitionController: UIPercentDrivenInteractiveTransition?
 }
 
 open class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate {
