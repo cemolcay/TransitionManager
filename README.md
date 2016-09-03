@@ -3,19 +3,26 @@ TransitionManager
 
 Painless custom transitioning. Easy extend, easy setup, just focus on animations.
 
-Install
-----
+## Installation
 
-### CocoaPods
+#### CocoaPods
+You can use [CocoaPods](http://cocoapods.org/) to install `TransitionManager` by adding it to your `Podfile`:
 
-``` ruby
+```ruby
+platform :ios, '8.0'
 use_frameworks!
 pod 'TransitionManager'
 ```
 
-### Manual
+To get the full benefits import `TransitionManager` wherever you import UIKit
 
-Copy & paste `TransitionManager` folder into your project.
+``` swift
+import UIKit
+import TransitionManager
+```
+#### Manually
+1. Download and drop ```/TransitionManager```folder in your project.  
+2. Congratulations!  
 
 Usage 
 -----
