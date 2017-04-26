@@ -112,7 +112,7 @@ extension UIView {
 // MARK: Transform Extensions
 
 func degreesToRadians (angle: CGFloat) -> CGFloat {
-    return (CGFloat (M_PI) * angle) / 180.0
+    return (CGFloat (.pi) * angle) / 180.0
 }
 
 extension UIView {
