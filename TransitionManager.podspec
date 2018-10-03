@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "TransitionManager"
-  s.version      = "0.2"
+  s.version      = "0.3"
   s.summary      = "Painless custom transitioning. Easy extend, easy setup, just focus on animations."
 
   # This description is used to generate tags and improve search results.
@@ -259,7 +259,7 @@ Now you can create `TransitionManager` in your view controller like
   s.author             = { "cemolcay" => "ccemolcay@gmail.com" }
   # Or just: s.author    = "cemolcay"
   # s.authors            = { "cemolcay" => "ccemolcay@gmail.com" }
-  # s.social_media_url   = "http://twitter.com/cemolcay"
+  s.social_media_url   = "http://twitter.com/cemolcay"
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -283,7 +283,7 @@ Now you can create `TransitionManager` in your view controller like
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/cemolcay/TransitionManager.git", :tag => "v0.2" }
+s.source       = { :git => "https://github.com/cemolcay/TransitionManager.git", :tag => "#{s.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -294,7 +294,7 @@ Now you can create `TransitionManager` in your view controller like
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "TransitionManager/TransitionManager/*.swift"
+  s.source_files  = "TransitionManager/Source/*.swift"
   # s.exclude_files = "Classes/Exclude"
 
   # s.public_header_files = "Classes/**/*.h"
