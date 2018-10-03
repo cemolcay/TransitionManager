@@ -18,6 +18,7 @@ Pod::Spec.new do |s|
   s.name         = "TransitionManager"
   s.version      = "0.3"
   s.summary      = "Painless custom transitioning. Easy extend, easy setup, just focus on animations."
+  s.swift_version = "4.2"
 
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
