@@ -9,51 +9,59 @@
 import UIKit
 
 class DemoButton: UIButton {
-    private var action: (() -> Void)!
+  private var action: (() -> Void)!
 
-    init(title: String, action: () -> Void) {
-        super.init(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
-        self.action = action
-        setTitle(title, forState: .Normal)
-        setTitleColor(UIColor(red: 230.0/255.0, green: 172.0/255.0, blue: 39.0/255.0, alpha: 1), forState: .Normal)
-        titleLabel?.font = UIFont(name: "AvenirNext-DemiBold", size: 20)
-        layer.borderWidth = 3
-        layer.borderColor = UIColor(red: 191.0/255.0, green: 77.0/255.0, blue: 40.0/255.0, alpha: 1).CGColor
-        layer.cornerRadius = 25
-        addTarget(self, action: "actionHandler:", forControlEvents: .TouchUpInside)
-    }
+  init(title: String, action: @escaping () -> Void) {
+    super.init(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
+    self.action = action
+    setTitle(title, for: .normal)
+    setTitleColor(UIColor(red: 230.0/255.0, green: 172.0/255.0, blue: 39.0/255.0, alpha: 1), for: .normal)
+    titleLabel?.font = UIFont(name: "AvenirNext-DemiBold", size: 20)
+    layer.borderWidth = 3
+    layer.borderColor = UIColor(red: 191.0/255.0, green: 77.0/255.0, blue: 40.0/255.0, alpha: 1).cgColor
+    layer.cornerRadius = 25
+    addTarget(self, action: #selector(actionHandler(sender:)), for: .touchUpInside)
+  }
 
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+  }
 
-    func actionHandler(sender: AnyObject) {
-        action()
-    }
+  @objc func actionHandler(sender: AnyObject) {
+    action()
+  }
+}
+
+class ModalViewController: UIViewController {
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    let button = DemoButton(title: "Back", action: {
+      self.dismiss(animated: true, completion: nil)
+    })
+    button.center.x = view.center.x
+    button.y = 50
+    view.addSubview(button)
+  }
 }
 
 class ViewController: UIViewController {
-    var transitionManager: TransitionManager!
+  let transitionManager = TransitionManager(transition: .pull)
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // setup transitioning
-        transitionManager = TransitionManager(transition: .Pull)
-        transitioningDelegate = transitionManager
-        // setup view
-        let button = DemoButton(title: "Next", action: {
-            self.performSegueWithIdentifier("modal", sender: nil)
-        })
-        button.center.x = view.center.x
-        button.y = 50
-        view.addSubview(button)
-    }
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    // setup transitioning
+    transitioningDelegate = transitionManager
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        segue.destinationViewController.transitioningDelegate = transitionManager
-    }
+    // setup view
+    let button = DemoButton(title: "Next", action: {
+      self.performSegue(withIdentifier: "modal", sender: nil)
+    })
+    button.center.x = view.center.x
+    button.y = 50
+    view.addSubview(button)
+  }
 
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
-    }
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    segue.destination.transitioningDelegate = transitionManager
+  }
 }
